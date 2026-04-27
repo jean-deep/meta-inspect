@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,38 +15,93 @@
             background-image: radial-gradient(#333 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        #graph-container:active { cursor: grabbing; }
-        
-        .node-rect { fill: #2b2b2b; stroke: #555; stroke-width: 2; rx: 8; ry: 8; }
-        .node-header { fill: #3b3b3b; }
-        .node-text-title { fill: #e0e0e0; font-size: 14px; font-family: sans-serif; font-weight: bold; pointer-events: none; }
-        .node-text { fill: #aaaaaa; font-size: 12px; font-family: sans-serif; pointer-events: none; }
-        .link-path { fill: none; stroke: #6b7280; stroke-width: 3; opacity: 0.7; }
-        .link-path:hover { stroke: #3b82f6; stroke-width: 5; opacity: 1; }
-        
+
+        #graph-container:active {
+            cursor: grabbing;
+        }
+
+        .node-rect {
+            fill: #2b2b2b;
+            stroke: #555;
+            stroke-width: 2;
+            rx: 8;
+            ry: 8;
+        }
+
+        .node-header {
+            fill: #3b3b3b;
+        }
+
+        .node-text-title {
+            fill: #e0e0e0;
+            font-size: 14px;
+            font-family: sans-serif;
+            font-weight: bold;
+            pointer-events: none;
+        }
+
+        .node-text {
+            fill: #aaaaaa;
+            font-size: 12px;
+            font-family: sans-serif;
+            pointer-events: none;
+        }
+
+        .link-path {
+            fill: none;
+            stroke: #6b7280;
+            stroke-width: 3;
+            opacity: 0.7;
+        }
+
+        .link-path:hover {
+            stroke: #3b82f6;
+            stroke-width: 5;
+            opacity: 1;
+        }
+
         /* Ocultar barra de desplazamiento en el JSON */
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
 </head>
+
 <body class="bg-gray-900 text-gray-200 h-screen flex flex-col font-sans overflow-hidden">
 
     <!-- Header -->
     <header class="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center shadow-md shrink-0">
         <div class="flex items-center gap-3">
-            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
+            </svg>
             <h1 class="text-xl font-bold text-white">Lector Local de Metadatos IA</h1>
         </div>
-        <span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded border border-green-700">100% Local / Privado</span>
+        <span class="text-xs bg-green-900 text-green-300 px-2 py-1 rounded border border-green-700">100% Local /
+            Privado</span>
     </header>
 
     <!-- Main Content -->
     <main class="flex-1 flex overflow-hidden">
-        
+
         <!-- Sidebar: Image & Dropzone -->
         <aside class="w-1/3 min-w-[300px] bg-gray-800 border-r border-gray-700 p-4 flex flex-col gap-4 overflow-y-auto">
-            <div id="dropzone" class="border-2 border-dashed border-gray-600 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-gray-700 transition-all flex flex-col items-center justify-center min-h-[200px]">
-                <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+            <div id="dropzone"
+                class="border-2 border-dashed border-gray-600 rounded-xl p-8 text-center cursor-pointer hover:border-blue-500 hover:bg-gray-700 transition-all flex flex-col items-center justify-center min-h-[200px]">
+                <svg class="w-12 h-12 text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                    </path>
+                </svg>
                 <p class="text-sm text-gray-300 mb-1">Arrastra una imagen PNG aquí</p>
                 <p class="text-xs text-gray-500">o haz clic para seleccionar</p>
                 <input type="file" id="file-input" class="hidden" accept="image/png, image/webp, image/jpeg">
@@ -53,17 +109,23 @@
 
             <div id="image-preview-container" class="hidden flex-col gap-2">
                 <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Vista Previa</h3>
-                <img id="image-preview" class="w-full rounded-lg shadow-lg border border-gray-700 object-contain max-h-[300px]" src="" alt="Preview">
+                <img id="image-preview"
+                    class="w-full rounded-lg shadow-lg border border-gray-700 object-contain max-h-[300px]" src=""
+                    alt="Preview">
                 <div id="file-info" class="text-xs text-gray-400 break-all mt-2 bg-gray-900 p-2 rounded"></div>
             </div>
         </aside>
 
         <!-- Main Panel: Metadata Tabs -->
         <section class="flex-1 flex flex-col bg-gray-900 relative">
-            
+
             <!-- Default State -->
             <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-gray-500 z-10">
-                <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <svg class="w-16 h-16 mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                </svg>
                 <p>Carga una imagen generada para ver sus metadatos.</p>
                 <p class="text-sm mt-2">Soporta parámetros de A1111 y flujos de nodos de ComfyUI.</p>
             </div>
@@ -72,20 +134,28 @@
             <div id="content-state" class="hidden flex-col h-full z-20 bg-gray-900">
                 <!-- Tabs -->
                 <div class="flex border-b border-gray-700 bg-gray-800 shrink-0">
-                    <button class="tab-btn px-6 py-3 text-sm font-medium text-blue-400 border-b-2 border-blue-500 hover:text-white transition-colors" data-target="tab-resumen">Parámetros / Resumen</button>
-                    <button class="tab-btn px-6 py-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-white transition-colors" data-target="tab-nodos">Visualizador de Nodos (ComfyUI)</button>
-                    <button class="tab-btn px-6 py-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-white transition-colors" data-target="tab-json">JSON Puro</button>
+                    <button
+                        class="tab-btn px-6 py-3 text-sm font-medium text-blue-400 border-b-2 border-blue-500 hover:text-white transition-colors"
+                        data-target="tab-resumen">Parámetros / Resumen</button>
+                    <button
+                        class="tab-btn px-6 py-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-white transition-colors"
+                        data-target="tab-nodos">Visualizador de Nodos (ComfyUI)</button>
+                    <button
+                        class="tab-btn px-6 py-3 text-sm font-medium text-gray-400 border-b-2 border-transparent hover:text-white transition-colors"
+                        data-target="tab-json">JSON Puro</button>
                 </div>
 
                 <!-- Tab: Resumen / A1111 -->
                 <div id="tab-resumen" class="tab-content flex-1 p-6 overflow-y-auto">
-                    <div id="no-metadata-msg" class="hidden text-yellow-500 bg-yellow-900/20 p-4 rounded-lg border border-yellow-700/50">
+                    <div id="no-metadata-msg"
+                        class="hidden text-yellow-500 bg-yellow-900/20 p-4 rounded-lg border border-yellow-700/50">
                         No se encontraron metadatos de texto legibles (tEXt/iTXt) en este archivo PNG.
                     </div>
-                    
+
                     <div id="a1111-container" class="hidden mb-6">
                         <h2 class="text-lg font-bold text-white mb-3">Parámetros (Stable Diffusion WebUI / A1111)</h2>
-                        <div class="bg-gray-800 border border-gray-700 rounded-lg p-4 font-mono text-sm whitespace-pre-wrap text-green-300" id="a1111-text"></div>
+                        <div class="bg-gray-800 border border-gray-700 rounded-lg p-4 font-mono text-sm whitespace-pre-wrap text-green-300"
+                            id="a1111-text"></div>
                     </div>
 
                     <div id="comfy-summary-container" class="hidden">
@@ -93,7 +163,14 @@
                         <div class="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden">
                             <table class="min-w-full divide-y divide-gray-700">
                                 <thead class="bg-gray-900">
-                                    <tr><th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Nodo ID</th><th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Tipo</th><th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Valores Principales</th></tr>
+                                    <tr>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Nodo
+                                            ID</th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">Tipo
+                                        </th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-400 uppercase">
+                                            Valores Principales</th>
+                                    </tr>
                                 </thead>
                                 <tbody id="comfy-summary-body" class="divide-y divide-gray-700">
                                     <!-- Generado dinamicamente -->
@@ -114,12 +191,25 @@
                             <!-- Se inyectará el graph_group dinámicamente para soportar zoom/pan -->
                             <g id="graph_group" transform="matrix(1 0 0 1 0 0)"></g>
                         </svg>
-                        
+
                         <!-- Controles de zoom superpuestos -->
-                        <div class="absolute bottom-4 right-4 flex gap-2 bg-gray-800 p-1 rounded-lg border border-gray-700 shadow-xl">
-                            <button id="btn-zoom-out" class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"></path></svg></button>
-                            <button id="btn-zoom-reset" class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded text-xs font-bold w-10">1:1</button>
-                            <button id="btn-zoom-in" class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg></button>
+                        <div
+                            class="absolute bottom-4 right-4 flex gap-2 bg-gray-800 p-1 rounded-lg border border-gray-700 shadow-xl">
+                            <button id="btn-zoom-out"
+                                class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><svg
+                                    class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7"></path>
+                                </svg></button>
+                            <button id="btn-zoom-reset"
+                                class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded text-xs font-bold w-10">1:1</button>
+                            <button id="btn-zoom-in"
+                                class="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded"><svg
+                                    class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
+                                    </path>
+                                </svg></button>
                         </div>
                     </div>
                 </div>
@@ -129,11 +219,15 @@
                     <div class="flex-1 p-4 overflow-hidden flex flex-col gap-4">
                         <div class="flex-1 flex flex-col">
                             <h3 class="text-sm font-semibold text-gray-400 mb-2">Prompt JSON</h3>
-                            <textarea id="raw-prompt" class="w-full flex-1 bg-gray-800 border border-gray-700 rounded p-3 text-xs font-mono text-green-400 focus:outline-none resize-none scrollbar-hide" readonly></textarea>
+                            <textarea id="raw-prompt"
+                                class="w-full flex-1 bg-gray-800 border border-gray-700 rounded p-3 text-xs font-mono text-green-400 focus:outline-none resize-none scrollbar-hide"
+                                readonly></textarea>
                         </div>
                         <div class="flex-1 flex flex-col">
                             <h3 class="text-sm font-semibold text-gray-400 mb-2">Workflow JSON</h3>
-                            <textarea id="raw-workflow" class="w-full flex-1 bg-gray-800 border border-gray-700 rounded p-3 text-xs font-mono text-purple-400 focus:outline-none resize-none scrollbar-hide" readonly></textarea>
+                            <textarea id="raw-workflow"
+                                class="w-full flex-1 bg-gray-800 border border-gray-700 rounded p-3 text-xs font-mono text-purple-400 focus:outline-none resize-none scrollbar-hide"
+                                readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -143,6 +237,43 @@
     </main>
 
     <script>
+        // --- GLOBAL STATE & SVG UTILS ---
+        let transform = { x: 0, y: 0, scale: 1 };
+        let graphBounds = { minX: 0, minY: 0, maxX: 0, maxY: 0, hasNodes: false };
+
+        function updateTransform() {
+            const graphGroup = document.getElementById('graph_group');
+            if (graphGroup) {
+                graphGroup.setAttribute('transform', `translate(${transform.x}, ${transform.y}) scale(${transform.scale})`);
+            }
+        }
+
+        function centerGraph() {
+            if (!graphBounds.hasNodes) return;
+
+            const container = document.getElementById('graph-container');
+            const cw = container.clientWidth;
+            const ch = container.clientHeight;
+
+            if (cw === 0 || ch === 0) return; // Contenedor oculto, esperamos a que esté visible
+
+            const padding = 100;
+            const graphW = graphBounds.maxX - graphBounds.minX;
+            const graphH = graphBounds.maxY - graphBounds.minY;
+
+            const scaleX = cw / (graphW + padding * 2);
+            const scaleY = ch / (graphH + padding * 2);
+            const initScale = Math.min(scaleX, scaleY, 1);
+
+            const cx = graphBounds.minX + graphW / 2;
+            const cy = graphBounds.minY + graphH / 2;
+
+            transform.scale = initScale;
+            transform.x = (cw / 2) - (cx * initScale);
+            transform.y = (ch / 2) - (cy * initScale);
+            updateTransform();
+        }
+
         // --- UI & TAB LOGIC ---
         const tabs = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
@@ -164,6 +295,12 @@
                 const targetId = tab.getAttribute('data-target');
                 document.getElementById(targetId).classList.remove('hidden');
                 document.getElementById(targetId).classList.add('flex'); // Keep flex layout if needed
+
+                // Centrar el grafo al mostrar la pestaña
+                if (targetId === 'tab-nodos') {
+                    // Timeout mínimo para asegurar que el DOM pintó el contenedor flex
+                    setTimeout(centerGraph, 10);
+                }
             });
         });
 
@@ -174,16 +311,16 @@
         const contentState = document.getElementById('content-state');
 
         dropzone.addEventListener('click', () => fileInput.click());
-        
+
         dropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropzone.classList.add('border-blue-500', 'bg-gray-700');
         });
-        
+
         dropzone.addEventListener('dragleave', () => {
             dropzone.classList.remove('border-blue-500', 'bg-gray-700');
         });
-        
+
         dropzone.addEventListener('drop', (e) => {
             e.preventDefault();
             dropzone.classList.remove('border-blue-500', 'bg-gray-700');
@@ -208,7 +345,7 @@
             document.getElementById('raw-workflow').value = '';
             document.getElementById('comfy-summary-body').innerHTML = '';
             document.getElementById('graph_group').innerHTML = '';
-            
+
             // Reset zoom
             transform = { x: 0, y: 0, scale: 1 };
             updateTransform();
@@ -248,7 +385,7 @@
         function extractPNGMetadata(buffer) {
             const dataView = new DataView(buffer);
             const uint8Array = new Uint8Array(buffer);
-            
+
             // Check PNG Signature: 89 50 4e 47 0d 0a 1a 0a
             if (dataView.getUint32(0) !== 0x89504E47) {
                 throw new Error("No es un archivo PNG válido.");
@@ -267,7 +404,7 @@
                     dataView.getUint8(offset + 6),
                     dataView.getUint8(offset + 7)
                 );
-                
+
                 if (type === 'IEND') break;
 
                 if (type === 'tEXt') {
@@ -289,7 +426,7 @@
                         let startText = nullIndex1 + 1 + 2; // skip flag and method
                         let nullIndex2 = chunkData.indexOf(0, startText); // end of lang
                         let nullIndex3 = chunkData.indexOf(0, nullIndex2 + 1); // end of trans_keyword
-                        
+
                         if (nullIndex3 !== -1) {
                             const textData = chunkData.slice(nullIndex3 + 1);
                             // If it's compressed, we'd need zlib/pako to decompress. 
@@ -297,11 +434,11 @@
                             // For this lightweight version we try raw utf-8 decode.
                             try {
                                 metadata[keyword] = decoder.decode(textData);
-                            } catch(e) {}
+                            } catch (e) { }
                         }
                     }
                 }
-                
+
                 offset += 8 + length + 4; // length(4) + type(4) + data + crc(4)
             }
             return metadata;
@@ -321,7 +458,7 @@
             // 2. Check ComfyUI
             if (metadata['prompt'] || metadata['workflow']) {
                 hasData = true;
-                
+
                 // Set JSON tab
                 if (metadata['prompt']) {
                     try {
@@ -332,12 +469,12 @@
                         document.getElementById('raw-prompt').value = metadata['prompt'];
                     }
                 }
-                
+
                 if (metadata['workflow']) {
                     try {
                         const workflowObj = JSON.parse(metadata['workflow']);
                         document.getElementById('raw-workflow').value = JSON.stringify(workflowObj, null, 2);
-                        
+
                         // Render Graph View
                         if (workflowObj.nodes && workflowObj.links) {
                             document.getElementById('no-nodos-msg').classList.add('hidden');
@@ -360,36 +497,35 @@
             const container = document.getElementById('comfy-summary-container');
             const tbody = document.getElementById('comfy-summary-body');
             container.classList.remove('hidden');
-            
+
             for (const [nodeId, nodeData] of Object.entries(promptObj)) {
                 const tr = document.createElement('tr');
-                
+
                 // ID
                 const tdId = document.createElement('td');
                 tdId.className = "px-4 py-3 whitespace-nowrap text-sm text-gray-400 font-mono";
                 tdId.innerText = nodeId;
-                
+
                 // Type
                 const tdType = document.createElement('td');
                 tdType.className = "px-4 py-3 whitespace-nowrap text-sm text-blue-400 font-semibold";
                 tdType.innerText = nodeData.class_type || 'Unknown';
-                
+
                 // Values (Inputs ignoring structural links)
                 const tdValues = document.createElement('td');
                 tdValues.className = "px-4 py-3 text-sm text-gray-300";
-                
+
                 let valuesHtml = '';
                 if (nodeData.inputs) {
                     for (const [k, v] of Object.entries(nodeData.inputs)) {
                         if (typeof v !== 'object') { // Solo primitivos, no links a otros nodos
                             let textVal = String(v);
-                            if (textVal.length > 50) textVal = textVal.substring(0, 50) + '...';
-                            valuesHtml += `<div class="mb-1"><span class="text-gray-500">${k}:</span> <span class="text-green-300">${textVal}</span></div>`;
+                            valuesHtml += `<div class="mb-2 break-words whitespace-pre-wrap"><span class="text-gray-500">${k}:</span> <span class="text-green-300">${textVal}</span></div>`;
                         }
                     }
                 }
                 tdValues.innerHTML = valuesHtml || '<span class="text-gray-600 italic">Sin valores directos</span>';
-                
+
                 tr.appendChild(tdId);
                 tr.appendChild(tdType);
                 tr.appendChild(tdValues);
@@ -403,7 +539,7 @@
             group.innerHTML = ''; // Clear previous
 
             const nodesMap = {};
-            
+
             // Draw Links first so they appear behind nodes
             const linksGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
             group.appendChild(linksGroup);
@@ -431,7 +567,7 @@
                         // Origin usually right side. Target usually left side.
                         const startX = sourceNode.pos[0] + (sourceNode.size ? sourceNode.size[0] : 200);
                         const startY = sourceNode.pos[1] + 40 + (source_slot * 20); // offset header and slots
-                        
+
                         const endX = targetNode.pos[0];
                         const endY = targetNode.pos[1] + 40 + (target_slot * 20);
 
@@ -480,7 +616,7 @@
                     headerRect.setAttribute("ry", 8);
                     // Hack to make bottom corners square for header
                     const headerClip = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    headerClip.setAttribute("d", `M 0 8 Q 0 0 8 0 L ${w-8} 0 Q ${w} 0 ${w} 8 L ${w} 30 L 0 30 Z`);
+                    headerClip.setAttribute("d", `M 0 8 Q 0 0 8 0 L ${w - 8} 0 Q ${w} 0 ${w} 8 L ${w} 30 L 0 30 Z`);
                     headerClip.setAttribute("class", "node-header");
                     nodeG.appendChild(headerClip);
 
@@ -501,54 +637,60 @@
                     textId.textContent = `#${node.id}`;
                     nodeG.appendChild(textId);
 
-                    // Some visual fluff for properties inside node
-                    const innerText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                    innerText.setAttribute("x", 10);
-                    innerText.setAttribute("y", 50);
-                    innerText.setAttribute("class", "node-text");
-                    innerText.textContent = (node.widgets_values || node.inputs) ? "Configurado" : "Defecto";
-                    nodeG.appendChild(innerText);
+                    // Contenido del nodo usando foreignObject para soportar HTML y scroll interno
+                    const fo = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+                    fo.setAttribute("x", 5);
+                    fo.setAttribute("y", 35);
+                    fo.setAttribute("width", w - 10);
+                    fo.setAttribute("height", h - 40);
+
+                    const div = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+                    div.style.cssText = "font-size: 11px; color: #d1d5db; width: 100%; height: 100%; overflow-y: auto; padding: 5px; box-sizing: border-box; word-break: break-word;";
+                    div.className = "scrollbar-hide";
+
+                    if (node.widgets_values && Array.isArray(node.widgets_values)) {
+                        node.widgets_values.forEach((v) => {
+                            const vDiv = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+                            vDiv.style.cssText = "margin-bottom: 4px; padding: 4px; background: rgba(0,0,0,0.3); border-radius: 4px;";
+                            vDiv.textContent = String(v);
+                            div.appendChild(vDiv);
+                        });
+                    } else if (node.inputs) {
+                        for (const [k, v] of Object.entries(node.inputs)) {
+                            const vDiv = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+                            vDiv.style.cssText = "margin-bottom: 4px; padding: 4px; background: rgba(0,0,0,0.3); border-radius: 4px;";
+                            vDiv.innerHTML = `<strong style="color:#9ca3af;">${k}:</strong> ${String(v).replace(/</g, '&lt;')}`;
+                            div.appendChild(vDiv);
+                        }
+                    } else {
+                        const emptyDiv = document.createElementNS("http://www.w3.org/1999/xhtml", "div");
+                        emptyDiv.style.cssText = "color: #6b7280; font-style: italic; text-align: center; margin-top: 10px;";
+                        emptyDiv.textContent = "Sin valores configurados";
+                        div.appendChild(emptyDiv);
+                    }
+
+                    fo.appendChild(div);
+                    nodeG.appendChild(fo);
 
                     nodesGroup.appendChild(nodeG);
                 });
             }
 
-            // Auto-center camera
+            // Guardar bounds y centrar la cámara
             if (minX !== Infinity) {
-                const padding = 100;
-                const container = document.getElementById('graph-container');
-                const cw = container.clientWidth;
-                const ch = container.clientHeight;
-                
-                const graphW = maxX - minX;
-                const graphH = maxY - minY;
-                
-                // Calculate scale to fit
-                const scaleX = cw / (graphW + padding * 2);
-                const scaleY = ch / (graphH + padding * 2);
-                const initScale = Math.min(scaleX, scaleY, 1); // Max zoom 1
-
-                const cx = minX + graphW / 2;
-                const cy = minY + graphH / 2;
-
-                transform.scale = initScale;
-                transform.x = (cw / 2) - (cx * initScale);
-                transform.y = (ch / 2) - (cy * initScale);
-                updateTransform();
+                graphBounds = { minX, minY, maxX, maxY, hasNodes: true };
+                centerGraph();
+            } else {
+                graphBounds.hasNodes = false;
             }
         }
 
         // --- SVG PAN & ZOOM LOGIC ---
         const svgContainer = document.getElementById('graph-container');
         const graphGroup = document.getElementById('graph_group');
-        
-        let transform = { x: 0, y: 0, scale: 1 };
+
         let isPanning = false;
         let startPoint = { x: 0, y: 0 };
-
-        function updateTransform() {
-            graphGroup.setAttribute('transform', `translate(${transform.x}, ${transform.y}) scale(${transform.scale})`);
-        }
 
         svgContainer.addEventListener('mousedown', (e) => {
             isPanning = true;
@@ -571,7 +713,7 @@
             const zoomSensitivity = 0.001;
             const delta = -e.deltaY * zoomSensitivity;
             const newScale = Math.max(0.1, Math.min(transform.scale * (1 + delta), 5));
-            
+
             // Zoom toward mouse pointer
             const rect = svgContainer.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
@@ -600,4 +742,5 @@
 
     </script>
 </body>
+
 </html>
